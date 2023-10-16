@@ -18,6 +18,8 @@ pipeline {
                 junit 'target/surface-reports/*.xml'
                 jacoco execPattern: 'target/jacoco.exec'
               }
+
+          }
         }
     }
 }
