@@ -12,8 +12,12 @@ pipeline {
      stage('Unit Tests') {
             steps {
               sh "mvn test"
-            
             }
+            post {
+              always {
+                junit 'target/surface-reports/*.xml'
+                jacoco execPattern: 'target/jacoco.exec'
+              }
         }
     }
 }
