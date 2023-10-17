@@ -81,6 +81,7 @@
 						<version>0.9</version>
 						<scope>test</scope>
 					</dependency>
+				</dependencies>
 				<configuration>
 					<mutationThreshold>70</mutationThreshold>
 					<outputFormats>
