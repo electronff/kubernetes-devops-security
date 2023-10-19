@@ -40,7 +40,7 @@ pipeline {
           -Dsonar.projectKey=numeric \
           -Dsonar.projectName='numeric' \
           -Dsonar.host.url=http://devop.eastus.cloudapp.azure.com:9000 \
-          -Dsonar.token=sqp_c0a939867c11f71f18a209c34731cec7cc3cda60"
+         # -Dsonar.token=sqp_c0a939867c11f71f18a209c34731cec7cc3cda60"
             }
           timeout(time: 2, unit: 'MINUTES') {
             script {
