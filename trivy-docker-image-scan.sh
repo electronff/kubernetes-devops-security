@@ -20,3 +20,9 @@ else
 fi
 
 exit $exit_code
+
+
+# The dockerImageName is extracted directly from the Dockerfile. The awk command is adjusted to specifically look for lines that start with FROM, which is the Dockerfile instruction to specify the base image.
+# The trivy scan is executed once, checking for both HIGH and CRITICAL vulnerabilities.
+# The exit code from the trivy command is captured and used to provide clear output about the scan results.
+# The script exits with the same status code as the trivy scan, which can be useful in a CI/CD pipeline to fail the build if vulnerabilities are found.
