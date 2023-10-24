@@ -4,9 +4,14 @@
 dockerImageName=$(awk '/^FROM /{print $2}' Dockerfile)
 echo "Scanning Docker image: $dockerImageName"
 
+# Ensure Trivy's vulnerability database is up to date
+echo "Updating Trivy's vulnerability database..."
+docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 --download-db-only
+
 # Run Trivy to scan the Docker image for HIGH and CRITICAL vulnerabilities
+echo "Running Trivy scan..."
 docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image \
-  --exit-code 1 --severity HIGH,CRITICAL --light "$dockerImageName"
+  --timeout 10m --exit-code 1 --severity HIGH,CRITICAL --light "$dockerImageName"
 
 # Capture the exit code from the Trivy scan
 exit_code=$?
