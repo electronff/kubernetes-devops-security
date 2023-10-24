@@ -60,7 +60,7 @@ pipeline {
         //     dependencyCheckPublisher pattern:'target/dependency-check-report.xml'
         //   }
         // }
-      }
+      // }
 
       stage ('Vulnerabililyt Scan - Docker') {
         steps {
@@ -74,8 +74,8 @@ pipeline {
           )
         }
       
-        
       }
+      
 
 
       stage('Docker Build and push') {
@@ -104,5 +104,5 @@ pipeline {
             dependencyCheckPublisher pattern:'target/dependency-check-report.xml'
           }
         }
-    }  
+     
   
