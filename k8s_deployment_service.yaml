@@ -15,7 +15,7 @@ spec:
       labels:
         app: devsecops
     spec:
-      volimes:
+      volumes:
       - name: vol
         emptyDir: {}
       serviceAccountName: default
