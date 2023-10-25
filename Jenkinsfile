@@ -48,7 +48,7 @@ pipeline {
           sh " mvn clean verify sonar:sonar \
           -Dsonar.projectKey=numeric \
           -Dsonar.projectName='numeric' \
-          -Dsonar.host.url=http://devop.eastus.cloudapp.azure.com:9000 \
+          -Dsonar.host.url=http://devop.eastus.cloudapp.azure.com:9000 
           // -Dsonar.token=sqp_7d5d2d79de46eb0eef6324fab22caa8f9f2ae742
             }
           timeout(time: 2, unit: 'MINUTES') {
