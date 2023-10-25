@@ -132,33 +132,64 @@ pipeline {
     //     )
     //   }
     // }
-    stage('K8S Deployment - DEV') {
-      steps {
-          script {
-              parallel(
-                  "Deployment": {
+//     stage('K8S Deployment - DEV') {
+//       steps {
+//           script {
+//               parallel(
+//                   "Deployment": {
+//                       withKubeConfig([credentialsId: 'kubeconfig']) {
+//                           sh "bash k8s-deployment.sh"
+//                       }
+//                   },
+//                   "Rollout Status": {
+//                       withKubeConfig([credentialsId: 'kubeconfig']) {
+//                           sh "bash k8s-deployment-rollout-status.sh"
+//                       }
+//                 }
+//             )
+//         }
+//     }
+// }
+//   }
+
+//     post {
+//       always {
+//         junit 'target/surefire-reports/*.xml'
+//         jacoco execPattern: 'target/jacoco.exec'
+//         pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+//         dependencyCheckPublisher pattern:'target/dependency-check-report.xml'
+//         }
+//       }
+//     }
+
+
+
+        stage('K8S Deployment - DEV') {
+              steps {
+                script {
+                  parallel(
+                    "Deployment": {
                       withKubeConfig([credentialsId: 'kubeconfig']) {
-                          sh "bash k8s-deployment.sh"
+                        sh "bash k8s-deployment.sh"
                       }
-                  },
-                  "Rollout Status": {
+                    },
+                    "Rollout Status": {
                       withKubeConfig([credentialsId: 'kubeconfig']) {
-                          sh "bash k8s-deployment-rollout-status.sh"
+                        sh "bash k8s-deployment-rollout-status.sh"
                       }
+                    }
+                  )
                 }
-            )
-        }
-    }
-}
+              }
+            }
+          }
 
-
-    post {
-      always {
-        junit 'target/surefire-reports/*.xml'
-        jacoco execPattern: 'target/jacoco.exec'
-        pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-        dependencyCheckPublisher pattern:'target/dependency-check-report.xml'
+          post {
+            always {
+              junit 'target/surefire-reports/*.xml'
+              jacoco execPattern: 'target/jacoco.exec'
+              pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+              dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+            }
+          }
         }
-      }
-    }
-}
