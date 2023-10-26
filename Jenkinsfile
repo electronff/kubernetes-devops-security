@@ -188,6 +188,7 @@ pipeline {
             sh 'exit 0'
         }
       } 
+  }      
 
       post {
             always {
@@ -200,6 +201,6 @@ pipeline {
               sendNotification currentBuild.result
             }
           }
-}
+
 }
     
