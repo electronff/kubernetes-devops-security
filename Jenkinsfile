@@ -93,7 +93,7 @@ pipeline {
             steps {
               withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                 sh 'printenv'
-                sh 'docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
+                sh 'sudo docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
                 sh 'docker push muritala/numeric-app:""$GIT_COMMIT""'
               }
            }
@@ -153,6 +153,23 @@ pipeline {
               }
             }
           }
+      
+      stage('integratiion Tests - Dev') {
+            steps {
+              script {
+                try{
+                  withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh "bash k8s-integration-test.sh"
+                  }
+                } catch (e) {
+                  withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh "kubectl -n default rollout undo deplo ${deploymentName}"
+                  }
+                }
+              }
+            }
+          }
+      
 
       post {
             always {
