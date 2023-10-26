@@ -18,7 +18,7 @@ pipeline {
             }
         } 
     
-     stage('Unit Tests -Jacoco') {
+      stage('Unit Tests -Jacoco') {
             steps {
               sh "mvn test"
             }
@@ -134,7 +134,7 @@ pipeline {
     //         }
     //      }
     //   }
-        stage('K8S Deployment - DEV') {
+      stage('K8S Deployment - DEV') {
               steps {
                 script {
                   parallel(
@@ -189,7 +189,7 @@ pipeline {
         //   }
         // }
 
-        stage('Integration Tests - DEV') {
+      stage('Integration Tests - DEV') {
             steps {
                 script {
                     def kubeConfigId = 'kubeconfig'
@@ -209,10 +209,10 @@ pipeline {
                 }
             }
         }
-      } 
+      
 
 
-        post {
+      post {
             always {
               junit 'target/surefire-reports/*.xml'
               jacoco execPattern: 'target/jacoco.exec'
@@ -220,5 +220,5 @@ pipeline {
               dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
           }
-      
+}
     
