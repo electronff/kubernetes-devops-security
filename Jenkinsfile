@@ -152,7 +152,7 @@ pipeline {
                 }
               }
             }
-          }
+          
       
       stage('integratiion Tests - Dev') {
             steps {
@@ -169,7 +169,7 @@ pipeline {
               }
             }
           }
-      
+        }
 
       post {
             always {
