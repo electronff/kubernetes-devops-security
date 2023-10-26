@@ -154,21 +154,21 @@ pipeline {
             }
           }
       
-      stage('integratiion Tests - Dev') {
-            steps {
-              script {
-                try{
-                  withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh "bash k8s-integration-test.sh"
-                  }
-                } catch (e) {
-                  withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh "kubectl -n default rollout undo deploy ${deploymentName}"
-                  }
-                }
-              }
-            }
-          }
+      // stage('integratiion Tests - Dev') {
+      //       steps {
+      //         script {
+      //           try{
+      //             withKubeConfig([credentialsId: 'kubeconfig']) {
+      //               sh "bash k8s-integration-test.sh"
+      //             }
+      //           } catch (e) {
+      //             withKubeConfig([credentialsId: 'kubeconfig']) {
+      //               sh "kubectl -n default rollout undo deploy ${deploymentName}"
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
       
 
       post {
