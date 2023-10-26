@@ -169,7 +169,7 @@ pipeline {
               }
             }
           }
-        }
+        
 
       stage('OWASP ZAP - DAST') {
           steps {
@@ -178,6 +178,7 @@ pipeline {
             }
           }
         }
+      }
 
       post {
             always {
@@ -185,6 +186,7 @@ pipeline {
               jacoco execPattern: 'target/jacoco.exec'
               pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
               dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+              publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'HTML ReportOWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report', useWrapperFileDirectly: true])
             }
           }
 }
