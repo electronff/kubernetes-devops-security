@@ -161,7 +161,7 @@ pipeline {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
                   sh "bash integration-test.sh"
                 }
-              },
+              }
               catch (e) {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
                   sh "kubectl -n default rollout undo deploy ${deploymentName}"
