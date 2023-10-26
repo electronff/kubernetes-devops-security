@@ -93,8 +93,8 @@ pipeline {
             steps {
               withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                 sh 'printenv'
-                sh 'docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
-                sh 'docker push muritala/numeric-app:""$GIT_COMMIT""'
+                sh 'sudo docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
+                sh 'sudo docker push muritala/numeric-app:""$GIT_COMMIT""'
               }
            }
          }
@@ -154,22 +154,23 @@ pipeline {
             }
           }
 
-        // stage('Integration Tests - DEV') {
-        //   steps {
-        //     script {
-        //       try {
-        //         withKubeConfig([credentialsId: 'kubeconfig']) {
-        //           sh "bash integration-test.sh"
-        //         }
-        //       } catch (e) {
-        //         withKubeConfig([credentialsId: 'kubeconfig']) {
-        //           sh "kubectl -n default rollout undo deploy ${deploymentName}"
-        //         }
-        //         throw e
-        //       }
-        //     }
-        //   }
-        // }
+        stage('Integration Tests - DEV') {
+          steps {
+            script {
+              try {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                  sh "bash integration-test.sh"
+                }
+              } 
+              catch (e) {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                  sh "kubectl -n default rollout undo deploy ${deploymentName}"
+                }
+                throw e
+              }
+            }
+          }
+        }
         
         // stage('Integration Tests - DEV') {
         //   steps {
