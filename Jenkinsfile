@@ -154,22 +154,44 @@ pipeline {
             }
           }
 
+        // stage('Integration Tests - DEV') {
+        //   steps {
+        //     script {
+        //       try {
+        //         withKubeConfig([credentialsId: 'kubeconfig']) {
+        //           sh "bash integration-test.sh"
+        //         }
+        //       } catch (e) {
+        //         withKubeConfig([credentialsId: 'kubeconfig']) {
+        //           sh "kubectl -n default rollout undo deploy ${deploymentName}"
+        //         }
+        //         throw e
+        //       }
+        //     }
+        //   }
+        // }
+
         stage('Integration Tests - DEV') {
           steps {
             script {
+              def kubeConfigId = 'kubeconfig'
+              def namespace = 'default'
               try {
-                withKubeConfig([credentialsId: 'kubeconfig']) {
-                  sh "bash integration-test.sh"
+                withKubeConfig([credentialsId: kubeConfigId]) {
+                  sh "bash integration-test.sh ${namespace} ${deploymentName}"
                 }
-              } catch (e) {
-                withKubeConfig([credentialsId: 'kubeconfig']) {
-                  sh "kubectl -n default rollout undo deploy ${deploymentName}"
+              } catch (Exception e) {
+                echo "Integration tests failed. Rolling back deployment..."
+                withKubeConfig([credentialsId: kubeConfigId]) {
+                  sh "kubectl -n ${namespace} rollout undo deploy ${deploymentName}"
                 }
                 throw e
               }
             }
           }
         }
+
+
           post {
             always {
               junit 'target/surefire-reports/*.xml'
