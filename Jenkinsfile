@@ -147,7 +147,7 @@ pipeline {
                     //   withKubeConfig([credentialsId: 'kubeconfig']) {
                     //     sh "bash k8s-deployment-rollout-status.sh"
                     //   }
-                    }
+                    // }
                   )
                 }
               }
@@ -178,6 +178,7 @@ pipeline {
             }
           }
         }
+
       post {
             always {
               junit 'target/surefire-reports/*.xml'
