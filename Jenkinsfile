@@ -33,17 +33,17 @@ pipeline {
           }
         }
 
-      // stage('Mutation Tests - PIT') {
-      //   steps {
-      //     sh "/opt/apache-maven-3.8.8/bin/mvn org.pitest:pitest-maven:mutationCoverage"
-      //   }
-      //   post {
-      //     always {
-      //       pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-      //     }
-      //   }
+      stage('Mutation Tests - PIT') {
+        steps {
+          sh "/opt/apache-maven-3.8.8/bin/mvn org.pitest:pitest-maven:mutationCoverage"
+        }
+        post {
+          always {
+            pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+          }
+        }
         
-      // }
+      }
       
       // stage('SonarQube -SAST') {
       //   steps {
