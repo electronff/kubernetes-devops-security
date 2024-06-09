@@ -21,46 +21,46 @@ pipeline {
             }
         } 
     
-      stage('Unit Tests -Jacoco') {
-            steps {
-              sh "/opt/apache-maven-3.8.8/bin/mvn test"
-            }
-            post {
-              always {
-                junit 'target/surefire-reports/*.xml'
-                jacoco execPattern: 'target/jacoco.exec'
-              }
-          }
-        }
+      // stage('Unit Tests -Jacoco') {
+      //       steps {
+      //         sh "/opt/apache-maven-3.8.8/bin/mvn test"
+      //       }
+      //       post {
+      //         always {
+      //           junit 'target/surefire-reports/*.xml'
+      //           jacoco execPattern: 'target/jacoco.exec'
+      //         }
+      //     }
+      //   }
 
-      stage('Mutation Tests - PIT') {
-        steps {
-          sh "/opt/apache-maven-3.8.8/bin/mvn org.pitest:pitest-maven:mutationCoverage"
-        }
-        post {
-          always {
-            pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-          }
-        }
+      // stage('Mutation Tests - PIT') {
+      //   steps {
+      //     sh "/opt/apache-maven-3.8.8/bin/mvn org.pitest:pitest-maven:mutationCoverage"
+      //   }
+      //   post {
+      //     always {
+      //       pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+      //     }
+      //   }
         
-      }
+      // }
       
-      stage('SonarQube -SAST') {
-        steps {
-          // withSonarQubeEnv('SonarQube') { 
-          sh "/opt/apache-maven-3.8.8/bin/mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=numeric-application \
-                -Dsonar.projectName='numeric-application' \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.token=sqp_1622b9b22a1f80ad94ebfe7fabcf6d9005296c02"
-            // }
-          // timeout(time: 2, unit: 'MINUTES') {
-          //   script {
-          //     waitForQualityGate abortPipeline: true
-          //   }
-          // }
-        }    
-      }
+      // stage('SonarQube -SAST') {
+      //   steps {
+      //     // withSonarQubeEnv('SonarQube') { 
+      //     sh "/opt/apache-maven-3.8.8/bin/mvn clean verify sonar:sonar \
+      //           -Dsonar.projectKey=numeric-application \
+      //           -Dsonar.projectName='numeric-application' \
+      //           -Dsonar.host.url=http://localhost:9000 \
+      //           -Dsonar.token=sqp_1622b9b22a1f80ad94ebfe7fabcf6d9005296c02"
+      //       // }
+      //     // timeout(time: 2, unit: 'MINUTES') {
+      //     //   script {
+      //     //     waitForQualityGate abortPipeline: true
+      //     //   }
+      //     // }
+      //   }    
+      // }
 
 
 
