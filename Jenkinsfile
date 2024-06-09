@@ -92,15 +92,15 @@ pipeline {
       
   //     }   
 
-  //     stage('Docker Build and push') {
-  //           steps {
-  //             withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
-  //               sh 'printenv'
-  //               sh 'sudo docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
-  //               sh 'docker push muritala/numeric-app:""$GIT_COMMIT""'
-  //             }
-  //          }
-  //        }
+      stage('Docker Build and push') {
+            steps {
+              withDockerRegistry([credentialsId: "docker1", url: ""]) {
+                sh 'printenv'
+                sh 'sudo docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
+                sh 'docker push muritala/numeric-app:""$GIT_COMMIT""'
+              }
+           }
+         }
 
 
   //     // stage('Vulnerability Scan - kubernetes') {
