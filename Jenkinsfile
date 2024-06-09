@@ -25,12 +25,12 @@ pipeline {
             steps {
               sh "/opt/apache-maven-3.8.8/bin/mvn test"
             }
-      //       post {
-      //         always {
-      //           junit 'target/surefire-reports/*.xml'
-      //           jacoco execPattern: 'target/jacoco.exec'
-      //         }
-      //     }
+            post {
+              always {
+                junit 'target/surefire-reports/*.xml'
+                jacoco execPattern: 'target/jacoco.exec'
+              }
+          }
         }
 
       // stage('Mutation Tests - PIT') {
@@ -95,15 +95,15 @@ pipeline {
       
   //     }   
 
-      stage('Docker Build and push') {
-            steps {
-              withDockerRegistry([credentialsId: "docker1", url: ""]) {
-                sh 'printenv'
-                sh 'docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
-                sh 'docker push muritala/numeric-app:""$GIT_COMMIT""'
-              }
-           }
-         }
+      // stage('Docker Build and push') {
+      //       steps {
+      //         withDockerRegistry([credentialsId: "docker1", url: ""]) {
+      //           sh 'printenv'
+      //           sh 'docker build -t muritala/numeric-app:""$GIT_COMMIT"" .'
+      //           sh 'docker push muritala/numeric-app:""$GIT_COMMIT""'
+      //         }
+      //      }
+      //    }
 
 
   //     // stage('Vulnerability Scan - kubernetes') {
@@ -131,14 +131,14 @@ pipeline {
   //     }
 
 
-      stage('Kubernetes Deployment - DEV') {
-            steps {
-               withKubeConfig([credentialsId: 'k8s100097']) {
-               sh "sed -i 's#replace#muritala/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-               sh "kubectl apply -f k8s_deployment_service.yaml"
-             }
-            }
-         }
+      // stage('Kubernetes Deployment - DEV') {
+      //       steps {
+      //          withKubeConfig([credentialsId: 'k8s100097']) {
+      //          sh "sed -i 's#replace#muritala/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+      //          sh "kubectl apply -f k8s_deployment_service.yaml"
+      //        }
+      //       }
+      //    }
       // }
   //     stage('K8S Deployment - DEV') {
   //             steps {
