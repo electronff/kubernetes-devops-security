@@ -25,12 +25,12 @@ pipeline {
             steps {
               sh "/opt/apache-maven-3.8.8/bin/mvn test"
             }
-  //         //   post {
-  //         //     always {
-  //         //       junit 'target/surefire-reports/*.xml'
-  //         //       jacoco execPattern: 'target/jacoco.exec'
-  //         //     }
-  //         // }
+            post {
+              always {
+                junit 'target/surefire-reports/*.xml'
+                jacoco execPattern: 'target/jacoco.exec'
+              }
+          }
         }
 
   //     stage('Mutation Tests - PIT') {
