@@ -142,7 +142,7 @@ pipeline {
   //               script {
   //                 parallel(
   //                   "Deployment": {
-  //                     withKubeConfig([credentialsId: 'kubeconfig']) {
+  //                     withKubeConfig([credentialsId: 'k8s100097']) {
   //                       sh "bash k8s-deployment.sh"
   //                     }
   //                   }
