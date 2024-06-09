@@ -23,7 +23,7 @@ pipeline {
     
       stage('Unit Tests -Jacoco') {
             steps {
-              sh "mvn test"
+              sh "/opt/apache-maven-3.8.8/bin/mvn test"
             }
   //         //   post {
   //         //     always {
