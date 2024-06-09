@@ -125,7 +125,7 @@
 					</suppressionFiles> -->
 				</configuration>
 			</plugin>
-
+				#SonarQube Plugin added by AMI
 			 <plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>

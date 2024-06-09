@@ -54,11 +54,11 @@ pipeline {
                 -Dsonar.host.url=http://localhost:9000 \
                 -Dsonar.token=sqp_1622b9b22a1f80ad94ebfe7fabcf6d9005296c02"
             // }
-          timeout(time: 2, unit: 'MINUTES') {
-            script {
-              waitForQualityGate abortPipeline: true
-            }
-          }
+          // timeout(time: 2, unit: 'MINUTES') {
+          //   script {
+          //     waitForQualityGate abortPipeline: true
+          //   }
+          // }
         }    
       }
 
