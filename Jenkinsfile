@@ -128,15 +128,15 @@ pipeline {
   //     }
 
 
-  //   //   stage('Kubernetes Deployment - DEV') {
-  //   //         steps {
-  //   //            withKubeConfig([credentialsId: 'kubeconfig']) {
-  //   //            sh "sed -i 's#replace#muritala/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-  //   //            sh "kubectl apply -f k8s_deployment_service.yaml"
-  //   //          }
-  //   //         }
-  //   //      }
-  //   //   }
+      stage('Kubernetes Deployment - DEV') {
+            steps {
+               withKubeConfig([credentialsId: 'k8s100097']) {
+               sh "sed -i 's#replace#muritala/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+               sh "kubectl apply -f k8s_deployment_service.yaml"
+             }
+            }
+         }
+      }
   //     stage('K8S Deployment - DEV') {
   //             steps {
   //               script {
