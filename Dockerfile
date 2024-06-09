@@ -6,12 +6,12 @@ ARG JAR_FILE=target/*.jar
 
 # test wth the below before OPA-Conftest"
 
-# ADD ${JAR_FILE} app.jar  
-# ENTRYPOINT ["java","-jar","/app.jar"]
+ADD ${JAR_FILE} app.jar  
+ENTRYPOINT ["java","-jar","/app.jar"]
 
 
 #  uncomment this when OPA Conftest fail"
-RUN addgroup -S pipeline && adduser -S k8s-pipeline -G pipeline
-COPY ${JAR_FILE} /home/k8s-pipeline/app.jar
-# USER k8s-pipeline
-ENTRYPOINT [ "java". "-jar", "/home/k8s-pipeline/app.jar" ]
+# RUN addgroup -S pipeline && adduser -S k8s-pipeline -G pipeline
+# COPY ${JAR_FILE} /home/k8s-pipeline/app.jar
+# # USER k8s-pipeline
+# ENTRYPOINT [ "java". "-jar", "/home/k8s-pipeline/app.jar" ]
