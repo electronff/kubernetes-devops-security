@@ -1,17 +1,17 @@
 
-@Library('slack') _
+// @Library('slack') _
 
 pipeline {
   agent any
 
-  environment {
-    deploymentName = "devsecops"
-    containerName = "devsecops-container"
-    serviceName = "devsecops-svc"
-    imageName = "muritala/numeric-app:${GIT_COMMIT}"
-    applicationURL="http://devsecops.eastus.cloudapp.azure.com"
-    applicationURI="/increment/99"
-  }
+  // environment {
+  //   deploymentName = "devsecops"
+  //   containerName = "devsecops-container"
+  //   serviceName = "devsecops-svc"
+  //   imageName = "muritala/numeric-app:${GIT_COMMIT}"
+  //   applicationURL="http://devsecops.eastus.cloudapp.azure.com"
+  //   applicationURI="/increment/99"
+  // }
 
   stages {
       stage('Build Artifact') {
