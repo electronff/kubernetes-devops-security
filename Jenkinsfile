@@ -45,22 +45,25 @@ pipeline {
         
       }
       
-  //     stage('SonarQube -SAST') {
-  //       steps {
-  //         withSonarQubeEnv('SonarQube') { 
-  //         sh " mvn clean verify sonar:sonar \
-  //             -Dsonar.projectKey=numeric-application \
-  //             -Dsonar.projectName='numeric-application' \
-  //             -Dsonar.host.url=http://devop.eastus.cloudapp.azure.com:9000 \
-  //             # -Dsonar.token=sqp_2bf80f3e27de7b7a4179f9e2336b561b766336a3"
-  //           }
-  //         timeout(time: 2, unit: 'MINUTES') {
-  //           script {
-  //             waitForQualityGate abortPipeline: true
-  //           }
-  //         }
-  //       }    
-  //     }
+      stage('SonarQube -SAST') {
+        steps {
+          withSonarQubeEnv('SonarQube') { 
+          sh "mvn clean verify sonar:sonar \
+                -Dsonar.projectKey=numeric-application \
+                -Dsonar.projectName='numeric-application' \
+                -Dsonar.host.url=http://localhost:9000 \
+                -Dsonar.token=sqp_1622b9b22a1f80ad94ebfe7fabcf6d9005296c02"
+            }
+          timeout(time: 2, unit: 'MINUTES') {
+            script {
+              waitForQualityGate abortPipeline: true
+            }
+          }
+        }    
+      }
+
+
+
 
 
   //     // stage('vulnerability Scan -Docker') {
